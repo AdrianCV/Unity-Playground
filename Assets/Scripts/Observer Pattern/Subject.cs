@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,6 +21,14 @@ public class Subject : MonoBehaviour
         _observers.ForEach((_observers) =>
         {
             _observers.OnNotify(action);
+        });
+    }
+
+    protected void NotifyObservers(Actions action, int amount, Sprite icon)
+    {
+        _observers.ForEach((_observers) =>
+        {
+            _observers.OnNotify(action, amount, icon);
         });
     }
 }
