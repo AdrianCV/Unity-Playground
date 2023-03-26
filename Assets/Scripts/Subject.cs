@@ -10,12 +10,12 @@ public class Subject : MonoBehaviour
         _observers.Add(observer);
     }
 
-    void RemoveObserver(IObserver observer)
+    public void RemoveObserver(IObserver observer)
     {
         _observers.Remove(observer);
     }
 
-    protected void NotifyObservers(string action)
+    protected void NotifyObservers(Actions action)
     {
         _observers.ForEach((_observers) =>
         {
