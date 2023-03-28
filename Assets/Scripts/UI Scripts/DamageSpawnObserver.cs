@@ -26,8 +26,8 @@ public class DamageSpawnObserver : MonoBehaviour, IObserver
 
     void SpawnDamageNumbers(int amount, Transform transform)
     {
-        var number = (GameObject)Instantiate(Resources.Load("DamageNumber"), transform.position + (Vector3.up * 2), Quaternion.identity);
-        number.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = amount + "";
+        var number = (GameObject)Instantiate(Resources.Load("DamageNumber"), transform.position + Vector3.up, Quaternion.identity);
+        number.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = amount + ""; // ew
     }
 
     private void OnEnable()
