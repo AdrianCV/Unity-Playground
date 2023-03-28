@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,28 +7,27 @@ public class DamageSpawnObserver : MonoBehaviour, IObserver
 {
     [SerializeField] private Subject _subject;
 
-    Dictionary<Actions, System.Action> _actionHandlers;
-
-
     private void Awake()
     {
-        _actionHandlers = new Dictionary<Actions, System.Action>()
-        {
-            { Actions.TakeDamage, SpawnDamageNumbers },
-        };
+        _subject = GetComponent<Subject>();
+        // _actionHandlers = new Dictionary<Actions, Action<int>>()
+        // {
+        //     { Actions.TakeDamage, SpawnDamageNumbers},
+        // };
     }
 
-    public void OnNotify(Actions action)
+    public void OnNotify(Actions action, int amount, Transform transform)
     {
-        if (_actionHandlers.ContainsKey(action))
+        if (action == Actions.TakeDamage && transform == this.transform)
         {
-            _actionHandlers[action]();
+            SpawnDamageNumbers(amount, transform);
         }
     }
 
-    void SpawnDamageNumbers()
+    void SpawnDamageNumbers(int amount, Transform transform)
     {
-
+        var number = (GameObject)Instantiate(Resources.Load("DamageNumber"), transform.position + (Vector3.up * 2), Quaternion.identity);
+        number.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = amount + "";
     }
 
     private void OnEnable()

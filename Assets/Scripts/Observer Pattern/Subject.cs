@@ -24,6 +24,22 @@ public class Subject : MonoBehaviour
         });
     }
 
+    protected void NotifyObservers(Actions action, int amount)
+    {
+        _observers.ForEach((_observers) =>
+        {
+            _observers.OnNotify(action, amount);
+        });
+    }
+
+    protected void NotifyObservers(Actions action, int amount, Transform transform)
+    {
+        _observers.ForEach((_observers) =>
+        {
+            _observers.OnNotify(action, amount, transform);
+        });
+    }
+
     protected void NotifyObservers(Actions action, int amount, Sprite icon)
     {
         _observers.ForEach((_observers) =>

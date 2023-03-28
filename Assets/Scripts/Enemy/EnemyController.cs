@@ -7,12 +7,16 @@ public class EnemyController : Subject
     // Start is called before the first frame update
     void Start()
     {
-        NotifyObservers(Actions.TakeDamage);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            var rand = Random.Range(1, 101);
+            NotifyObservers(Actions.TakeDamage, rand, transform);
+        }
     }
 }
