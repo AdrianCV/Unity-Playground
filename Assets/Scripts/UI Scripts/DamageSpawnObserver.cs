@@ -6,21 +6,25 @@ using UnityEngine;
 public class DamageSpawnObserver : MonoBehaviour, IObserver
 {
     [SerializeField] private Subject _subject;
+    private Action<int, Transform> _spawnFunction;
+
+    private Dictionary<Actions, Action<int, Transform>> _actionHandlers;
 
     private void Awake()
     {
         _subject = GetComponent<Subject>();
-        // _actionHandlers = new Dictionary<Actions, Action<int>>()
-        // {
-        //     { Actions.TakeDamage, SpawnDamageNumbers},
-        // };
+        _spawnFunction += SpawnDamageNumbers;
+        _actionHandlers = new Dictionary<Actions, Action<int, Transform>>()
+        {
+            { Actions.TakeDamage, _spawnFunction},
+        };
     }
 
     public void OnNotify(Actions action, int amount, Transform transform)
     {
-        if (action == Actions.TakeDamage && transform == this.transform)
+        if (_actionHandlers.ContainsKey(action) && transform == this.transform)
         {
-            SpawnDamageNumbers(amount, transform);
+            _actionHandlers[action](amount, transform);
         }
     }
 
