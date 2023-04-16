@@ -18,14 +18,11 @@ public class CameraTrainshake : MonoBehaviour
 
     [SerializeField] float _keyframeValueRange;
 
-    [SerializeField] private GameObject _player;
     [SerializeField] private Vector2 _followPos;
 
     // Start is called before the first frame update
     void Start()
     {
-        _player = GameObject.FindGameObjectWithTag("Player");
-
         _yShakeTimer = 0;
         Keyframe[] keyframes = new Keyframe[Random.Range(5, 10)];
 
